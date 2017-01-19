@@ -4,11 +4,10 @@ require 'bundler/setup'
 Bundler.require(:default, env.to_sym)
 
 class Sudoku
-  attr_accessor :index, :lines
+  attr_accessor :board
 
-  def initialize(lines)
-    @lines  = lines
-    @index  = @lines.shift.first
+  def initialize(board)
+    @board = board
 
     validate
   end
@@ -16,7 +15,7 @@ class Sudoku
   def valid_lines?
     valid = true
 
-    @lines.each do |line|
+    @board.each do |line|
       unless line.uniq.length == line.length
         valid = false
         break
@@ -30,7 +29,7 @@ class Sudoku
     valid = true
 
     for i in 0..8
-      column = @lines.map { |line| line[i] }
+      column = @board.map { |line| line[i] }
       unless column.uniq.length == column.length
         valid = false
         break
@@ -43,8 +42,6 @@ class Sudoku
   private
 
   def validate
-    fail 'Index less than 1' unless @index >= 1
-    fail 'Index greather than 10' unless @index <= 10
   end
 end
 
