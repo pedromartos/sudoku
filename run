@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require_relative 'sudoku'
+
+values = []
+while a = gets
+  values << a.split(/\s/).map(&:to_i)
+end
+
+item = Sudoku.new(values)
+
+
