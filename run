@@ -1,12 +1,17 @@
 #!/usr/bin/env ruby
 
-require_relative 'sudoku'
+require_relative 'code_challenge'
 
-values = []
-while a = gets
-  values << a.split(/\s/).map(&:to_i)
-end
+sample = File.new("sample_multiple.txt")
 
-item = Sudoku.new(values)
+CodeChallenge.new(sample).validate_boards
+
+
+# values = []
+# while a = gets
+#   values << a.split(/\s/).map(&:to_i)
+# end
+
+# item = Sudoku.new(values)
 
 
