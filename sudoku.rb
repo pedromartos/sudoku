@@ -13,6 +13,33 @@ class Sudoku
     validate
   end
 
+  def valid_lines?
+    valid = true
+
+    @lines.each do |line|
+      unless line.uniq.length == line.length
+        valid = false
+        break
+      end
+    end
+
+    valid
+  end
+
+  def valid_columns?
+    valid = true
+
+    for i in 0..8
+      column = @lines.map { |line| line[i] }
+      unless column.uniq.length == column.length
+        valid = false
+        break
+      end
+    end
+
+    valid
+  end
+
   private
 
   def validate
