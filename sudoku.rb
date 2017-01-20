@@ -8,15 +8,30 @@ class Sudoku
 
   def initialize(board)
     @board = board
+  end
 
-    validate
+  def valid?
+    valid_squares? and valid_lines? and valid_columns?
+  end
+
+  def valid_squares?
+    valid = true
+    squares = board_to_squares
+
+    squares.each do |square|
+      unless square.inject(0){ |sum,x| sum + x } == 45
+        valid = false
+        break
+      end
+    end
+    valid
   end
 
   def valid_lines?
     valid = true
 
     @board.each do |line|
-      unless line.uniq.length == line.length
+      unless line.inject(0){ |sum,x| sum + x } == 45
         valid = false
         break
       end
@@ -30,7 +45,7 @@ class Sudoku
 
     for i in 0..8
       column = @board.map { |line| line[i] }
-      unless column.uniq.length == column.length
+      unless column.inject(0){ |sum,x| sum + x } == 45
         valid = false
         break
       end
@@ -41,15 +56,23 @@ class Sudoku
 
   private
 
-  def validate
+  def board_to_squares
+    squares = []
+
+    @board.each_slice(3).with_index do |group, i|
+
+      squares[i] = []
+      group.each do |line|
+        line.each_slice(3).with_index do |block, j|
+          if squares[i][j] == nil
+            squares[i][j] = block
+          else
+            squares[i][j] = squares[i][j] + block
+          end
+        end
+      end
+    end
+
+    squares.flatten(1)
   end
 end
-
-__END__
-puts "\n\n"
-puts '#' * 200
-p @index
-p @lines
-puts '#' * 200
-puts "\n\n"
-
