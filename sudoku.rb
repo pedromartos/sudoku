@@ -8,8 +8,10 @@ class Sudoku
 
   def initialize(board)
     @board = board
+  end
 
-    validate
+  def valid?
+    valid_squares? and valid_lines? and valid_columns?
   end
 
   def valid_squares?
@@ -73,16 +75,4 @@ class Sudoku
 
     squares.flatten(1)
   end
-
-  def validate
-  end
 end
-
-__END__
-puts "\n\n"
-puts '#' * 200
-p @index
-p @lines
-puts '#' * 200
-puts "\n\n"
-
