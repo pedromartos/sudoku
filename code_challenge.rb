@@ -8,11 +8,11 @@ Bundler.require(:default, env.to_sym)
 require_relative 'sudoku'
 
 class CodeChallenge
-  attr_accessor :total_boards, :boards
+  attr_accessor :boards
 
   def initialize(input)
     matrix = input.readlines
-    @total_boards = matrix.shift.to_i
+    matrix.shift
 
     @boards = []
     matrix.each_slice(9) do |board|
