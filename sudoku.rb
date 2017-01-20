@@ -16,7 +16,7 @@ class Sudoku
     valid = true
     squares = board_to_squares
 
-    squares.flatten(1).each do |square|
+    squares.each do |square|
       unless square.inject(0){ |sum,x| sum + x } == 45
         valid = false
         break
@@ -71,7 +71,7 @@ class Sudoku
       end
     end
 
-    squares
+    squares.flatten(1)
   end
 
   def validate
