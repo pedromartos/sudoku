@@ -19,11 +19,10 @@ class Sudoku
     squares = board_to_squares
 
     squares.each do |square|
-      unless square.inject(0){ |sum,x| sum + x } == 45
-        valid = false
-        break
-      end
+      valid = valid_item?(square)
+      break unless valid
     end
+
     valid
   end
 
@@ -31,10 +30,8 @@ class Sudoku
     valid = true
 
     @board.each do |line|
-      unless line.inject(0){ |sum,x| sum + x } == 45
-        valid = false
-        break
-      end
+      valid = valid_item?(line)
+      break unless valid
     end
 
     valid
@@ -44,11 +41,9 @@ class Sudoku
     valid = true
 
     for i in 0..8
-      column = @board.map { |line| line[i] }
-      unless column.inject(0){ |sum,x| sum + x } == 45
-        valid = false
-        break
-      end
+      column  = @board.map { |line| line[i] }
+      valid   = valid_item?(column)
+      break unless valid
     end
 
     valid
@@ -64,15 +59,17 @@ class Sudoku
       squares[i] = []
       group.each do |line|
         line.each_slice(3).with_index do |block, j|
-          if squares[i][j] == nil
-            squares[i][j] = block
-          else
-            squares[i][j] = squares[i][j] + block
-          end
+          squares[i][j] = squares[i][j].nil? ? block : squares[i][j]+ block
         end
       end
     end
 
     squares.flatten(1)
+  end
+
+  def valid_item?(item)
+    obj = item.flatten
+
+    obj.inject(0){ |sum,x| sum + x } == 45
   end
 end
