@@ -1,6 +1,7 @@
-require_relative 'spec_helper'
+# frozen_string_literal: true
 
-require_relative  '../sudoku'
+require_relative 'spec_helper'
+require_relative '../sudoku'
 
 describe Sudoku do
   context 'Validate Board' do

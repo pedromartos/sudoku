@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 env = ENV['APPLICATION_ENV'] || 'development'
 
 require 'bundler/setup'
@@ -40,7 +42,7 @@ class Sudoku
   def valid_columns?
     valid = true
 
-    for i in 0..8
+    (0..8).each do |i|
       column  = @board.map { |line| line[i] }
       valid   = valid_item?(column)
       break unless valid
@@ -55,11 +57,10 @@ class Sudoku
     squares = []
 
     @board.each_slice(3).with_index do |group, i|
-
       squares[i] = []
       group.each do |line|
         line.each_slice(3).with_index do |block, j|
-          squares[i][j] = squares[i][j].nil? ? block : squares[i][j]+ block
+          squares[i][j] = squares[i][j].nil? ? block : squares[i][j] + block
         end
       end
     end
@@ -70,6 +71,6 @@ class Sudoku
   def valid_item?(item)
     obj = item.flatten
 
-    obj.inject(0){ |sum,x| sum + x } == 45
+    obj.inject(0) { |sum, x| sum + x } == 45
   end
 end

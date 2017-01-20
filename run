@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
+
 require_relative 'code_challenge'
 
-sample = File.new("sample_multiple.txt")
+sample = File.new('sample_multiple.txt')
 
 CodeChallenge.new(sample).validate_boards
-
 
 # values = []
 # while a = gets
@@ -13,5 +14,3 @@ CodeChallenge.new(sample).validate_boards
 # end
 
 # item = Sudoku.new(values)
-
-
